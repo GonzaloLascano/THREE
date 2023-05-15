@@ -1,0 +1,15 @@
+.caption {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    width: 600px;
+    margin: 200px auto auto auto;
+    padding: 6px;
+}
+span {
+    color: rgb(250, 222, 109);
+}
+.frame {
+    border: 6px solid rgb(250, 222, 109);
+    width: 600px;
+    height: 600px;
+    margin: 0px auto 200px ;
+}
