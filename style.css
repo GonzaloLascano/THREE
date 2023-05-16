@@ -1,7 +1,14 @@
+.container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 600px;  
+}
+
 .caption {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     width: 600px;
-    margin: 200px auto auto auto;
+    
     padding: 6px;
 }
 span {
@@ -11,5 +18,10 @@ span {
     border: 6px solid rgb(250, 222, 109);
     width: 600px;
     height: 600px;
-    margin: 0px auto 200px ;
+    
+}
+.logo {
+    width: 150px;
+    align-self: center;
+    transform: translateY(-75px);
 }

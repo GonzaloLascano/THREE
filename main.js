@@ -16,10 +16,10 @@ const loader = new GLTFLoader();
 camera.position.z = 2;
 const orbit = new OrbitControls(camera, renderer.domElement);
 
-const light = new THREE.AmbientLight( 0x404040, 7 ); // soft white light
+const light = new THREE.AmbientLight( 0x404040, 20 ); // soft white light
 light.position.set( 3, 3, 0 );
 scene.add( light );
-const pointLight = new THREE.PointLight( 0x404040, 10, 100 );
+const pointLight = new THREE.PointLight( 0x404040, 0, 100 );
 pointLight.position.set( 3, 7, 0 );
 scene.add( pointLight );
 
