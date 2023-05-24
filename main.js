@@ -13,9 +13,16 @@ frame.appendChild(renderer.domElement);
 const loader = new GLTFLoader();
 
 // adding 3d objects to the Scene:
+
+//camera
 camera.position.z = 2;
 const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.enableDamping = true;
+orbit.dampingFactor = 0.03;
+orbit.enablePan = false;
+orbit.enableZoom = false;
 
+//lights
 const light = new THREE.AmbientLight( 0x404040, 20 ); // soft white light
 light.position.set( 3, 3, 0 );
 scene.add( light );
@@ -29,6 +36,7 @@ const cube = new THREE.Mesh(geometry, material); */
 
 /* scene.add(cube); */
 
+//Custom Assets
 let helmetGLTF;
 
 loader.load('./emojis.gltf', gltf => {
@@ -42,6 +50,7 @@ loader.load('./emojis.gltf', gltf => {
 function animate() {
 	requestAnimationFrame( animate );
     helmetGLTF.scene.rotation.y += 0.001
+    orbit.update();
     renderer.render( scene, camera );
 }
 
