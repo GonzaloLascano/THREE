@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const frame = document.getElementsByClassName('frame')[0];
+let hoveredFrame = false;
 
 const scene = new THREE.Scene();
 const camera =  new THREE.PerspectiveCamera(75, 
@@ -11,6 +12,17 @@ const renderer = new THREE.WebGLRenderer({alpha: true});
 renderer.setSize(600, 600);
 frame.appendChild(renderer.domElement);
 const loader = new GLTFLoader();
+
+const mousePosition = new THREE.Vector3();
+mousePosition.z = 1
+frame.addEventListener('mousemove', function(e){
+    mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mousePosition.y = ((e.clientY / window.innerHeight) * 2 - 1) * -1;
+    hoveredFrame = true;
+});
+frame.addEventListener('mouseout', function(e){
+    hoveredFrame = false;
+})
 
 // adding 3d objects to the Scene:
 
@@ -47,9 +59,16 @@ loader.load('./emojis.gltf', gltf => {
 });
 
 
+
 function animate() {
 	requestAnimationFrame( animate );
-    helmetGLTF.scene.rotation.y += 0.001
+    if (hoveredFrame) {
+        helmetGLTF.scene.lookAt(mousePosition);
+    } else {
+        helmetGLTF.scene.rotation.x = 0;
+        helmetGLTF.scene.rotation.z = 0;    
+    }
+    helmetGLTF.scene.rotation.y += 0.001;
     orbit.update();
     renderer.render( scene, camera );
 }
