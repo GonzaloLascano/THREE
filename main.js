@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+//-------------Building the scene
+
 const frame = document.getElementsByClassName('frame')[0];
 let hoveredFrame = false;
 
@@ -12,6 +14,18 @@ const renderer = new THREE.WebGLRenderer({alpha: true});
 renderer.setSize(600, 600);
 frame.appendChild(renderer.domElement);
 const loader = new GLTFLoader();
+
+//Loading Custom Assets
+let helmetGLTF;
+
+loader.load('./emojis.gltf', gltf => {
+    helmetGLTF = gltf;
+    scene.add(gltf.scene);
+}, undefined, error => {
+    console.log(error);
+});
+
+//tracking mouse possition over the canvas
 
 const mousePosition = new THREE.Vector3();
 mousePosition.z = 1
@@ -24,7 +38,7 @@ frame.addEventListener('mouseout', function(e){
     hoveredFrame = false;
 })
 
-// adding 3d objects to the Scene:
+//-------------Arranging 3d objects in the Scene:
 
 //camera
 camera.position.z = 2;
@@ -48,23 +62,14 @@ const cube = new THREE.Mesh(geometry, material); */
 
 /* scene.add(cube); */
 
-//Custom Assets
-let helmetGLTF;
-
-loader.load('./emojis.gltf', gltf => {
-    helmetGLTF = gltf;
-    scene.add(gltf.scene);
-}, undefined, error => {
-    console.log(error);
-});
-
-
+//-------------Animating and Rendering the Scene
 
 function animate() {
 	requestAnimationFrame( animate );
     if (hoveredFrame) {
         helmetGLTF.scene.lookAt(mousePosition);
     } else {
+        orbit.reset();
         helmetGLTF.scene.rotation.x = 0;
         helmetGLTF.scene.rotation.z = 0;    
     }
